@@ -11,18 +11,15 @@ library(readxl)
 library(tidyverse)
 ```
 
-
 Here is the necessary data for 2019:
 
 ```{r}
-data2019 <- read_excel("./data/2022 Fall Data Challenge Dataset.xlsx", sheet = 1, na = c("-9", "-6"))
+data2019 <- read_excel("2022 Fall Data Challenge Dataset.xlsx", sheet = 1, na = c("-9", "-6"))
 ```
 
 ```{r}
-var_types <- read_excel("./data/2022 Fall Data Challenge Curated Dataset Codebook.xlsx", sheet = 1)
+var_types <- read_excel("2022 Fall Data Challenge Curated Dataset Codebook.xlsx", sheet = 1)
 ```
-
-
 
 ```{r eval = FALSE}
 new <- data2019
@@ -30,7 +27,6 @@ for (i in seq(1,147,2)) {
   new <- new %>% left_join(var_types[,(i):(i + 1)], )
 }
 ```
-
 
 ```{r}
 library(magrittr)
@@ -54,10 +50,5 @@ new %<>%
 ```
 
 ```{r}
-write_csv(new, "./data/clean_data_challenge.csv", na = "")
+write_csv(new, "clean_data_challenge.csv", na = "")
 ```
-
-
-
-
-
