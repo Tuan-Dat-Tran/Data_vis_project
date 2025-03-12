@@ -119,3 +119,352 @@ atb %>%
   scale_fill_viridis_d() +
   facet_wrap(~grades)
 ```
+
+# EDA
+
+```{r}
+library(ggplot2)
+
+atb %>%
+  ggplot(aes(x = enjoys)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = grades)) +
+  geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = absent)) +
+#   geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = attend_event)) +
+#   geom_bar()
+
+atb %>%
+  ggplot(aes(x = adult_volunteer)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = attend_meeting)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = attend_pto)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = pt_conf)) +
+  geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = fundraise)) +
+#   geom_bar()
+
+atb %>%
+  ggplot(aes(x = serve_committee)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = met_counselor)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = frq_meet)) +
+  geom_histogram()
+
+# atb %>%
+#   ggplot(aes(x = notes)) +
+#   geom_bar()
+# 
+# atb %>%
+#   ggplot(aes(x = newsletter)) +
+#   geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = school_satisfaction)) +
+#   geom_bar()
+# 
+# atb %>%
+#   ggplot(aes(x = teacher_satisfaction)) +
+#   geom_bar()
+# 
+# atb %>%
+#   ggplot(aes(x = standard_satisfaction)) +
+#   geom_bar()
+# 
+# atb %>%
+#   ggplot(aes(x = discipline_satisfaction)) +
+#   geom_bar()
+# 
+# atb %>%
+#   ggplot(aes(x = staff_satisfaction)) +
+#   geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = homework_days)) +
+#   geom_bar()
+# 
+# atb %>%
+#   ggplot(aes(x = homework_hours)) +
+#   geom_histogram()
+
+atb %>%
+  ggplot(aes(x = child_hmwk_amount)) +
+  geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = hmwk_place)) +
+#   geom_bar()
+
+atb %>%
+  ggplot(aes(x = hmwk_check)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = hmwk_help)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = story)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = craft)) +
+  geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = games)) +
+#   geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = project)) +
+#   geom_bar()
+
+atb %>%
+  ggplot(aes(x = sports)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = time_manage)) +
+  geom_bar()
+# 
+# atb %>%
+#   ggplot(aes(x = fam_history)) +
+#   geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = eat_together)) +
+#   geom_bar()
+
+atb %>%
+  ggplot(aes(x = library)) +
+  geom_bar()
+
+atb %>%
+  ggplot(aes(x = bookstore)) +
+  geom_bar()
+
+# atb %>%
+#   ggplot(aes(x = household_size)) +
+#   geom_bar()
+# 
+# atb %>%
+#   ggplot(aes(x = first_guardian_work)) +
+#   geom_bar()
+```
+
+notable variables
+
+hmwk_help
+
+library, bookstore, sports, craft, story, time_manage
+
+adult_volunteer
+
+attend_meeting, attend_pto, pt_conf, serve_committee, met_counselor, frq_meet
+
+child_hmwk_amount
+
+hmwk_check
+
+```{r}
+### HOMEWORK CHECK
+custom_order <- c("Always", "Sometimes", "Rarely", "Never")
+atb %>%
+  filter(hmwk_check != "Skip") %>%
+  mutate(hmwk_check = factor(hmwk_check, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = hmwk_check, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~grades)
+
+atb %>%
+  filter(hmwk_check != "Skip") %>%
+  mutate(hmwk_check = factor(hmwk_check, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = grades, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~hmwk_check)
+### these findings are lowkey strange
+
+## what's up with no grades???
+
+### HOMEWORK HELP
+custom_order <- c("Never", "Less than once", "1-2 days", "3-4 days", "5+ days")
+atb %>%
+  filter(hmwk_help != "Skip") %>%
+  mutate(hmwk_help = factor(hmwk_help, levels = custom_order
+                             )) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = hmwk_help, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~grades)
+
+atb %>%
+  filter(hmwk_help != "Skip") %>%
+  mutate(hmwk_help = factor(hmwk_help, levels = custom_order
+                             )) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = grades, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~hmwk_help)
+# what's up with never??? is it just the smart kids? it looks like grades go down as homework help goes up...??
+```
+
+```{r}
+#regression with grades
+
+library(nnet)
+
+# Example dataset
+atb <- data.frame(
+  grades = factor(sample(c("A", "B", "C", "D or F", "No grades", "Skip"), 100, replace = TRUE)), # Multiclass response
+  hmwk_help = factor(sample(c("Never", "Less than once", "1-2 days", "3-4 days", "5+ days"), 100, replace = TRUE)) # Categorical predictor
+)
+
+# Fit the multinomial logistic regression model
+model <- multinom(grades ~ hmwk_help, data = atb)
+
+# Model summary
+summary(model)
+```
+
+```{r}
+### HOMEWORK CHECK & enjoys
+custom_order <- c("Always", "Sometimes", "Rarely", "Never")
+atb %>%
+  filter(hmwk_check != "Skip") %>%
+  mutate(hmwk_check = factor(hmwk_check, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = hmwk_check, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~enjoys)
+
+atb %>%
+  filter(hmwk_check != "Skip") %>%
+  mutate(hmwk_check = factor(hmwk_check, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = enjoys, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~hmwk_check)
+
+
+### HOMEWORK HELP and enjoys
+custom_order <- c("Never", "Less than once", "1-2 days", "3-4 days", "5+ days")
+atb %>%
+  filter(hmwk_help != "Skip") %>%
+  mutate(hmwk_help = factor(hmwk_help, levels = custom_order
+                             )) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = hmwk_help, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~enjoys)
+
+atb %>%
+  filter(hmwk_help != "Skip") %>%
+  mutate(hmwk_help = factor(hmwk_help, levels = custom_order
+                             )) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = enjoys, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~hmwk_help)
+##this may actually be saying something... seems like as hw help goes up, there is more agreement about enjoying school, BUT ONLY SLIGHTLY
+```
+
+```{r}
+#custom_order <- c("Always", "Sometimes", "Rarely", "Never")
+atb %>%
+  filter(adult_volunteer != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = adult_volunteer, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~enjoys)
+
+atb %>%
+  filter(adult_volunteer != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = enjoys, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~adult_volunteer)
+### THIS IS WEIRD
+```
+
+```{r}
+###LIBRARY AND GRADES
+atb %>%
+  filter(library != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = library, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~grades)
+
+atb %>%
+  filter(grades != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = grades, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~library)
+
+
+###SERVE COMMITTEE AND GRADES
+atb %>%
+  filter(serve_committee != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = serve_committee, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~grades)
+
+atb %>%
+  filter(serve_committee != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = grades, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~serve_committee)
+
+###these are more promising; seems like when they serve on a committee, students tend to have more As
+
+### MET COUNSELOR AND GRADES
+
+atb %>%
+  filter(attend_pto != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = attend_pto, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~enjoys)
+
+atb %>%
+  filter(attend_pto != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = enjoys, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~attend_pto)
+```
