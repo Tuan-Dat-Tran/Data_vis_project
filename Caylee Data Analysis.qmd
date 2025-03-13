@@ -334,20 +334,20 @@ atb %>%
 
 ```{r}
 #regression with grades
-
-library(nnet)
-
-# Example dataset
-atb <- data.frame(
-  grades = factor(sample(c("A", "B", "C", "D or F", "No grades", "Skip"), 100, replace = TRUE)), # Multiclass response
-  hmwk_help = factor(sample(c("Never", "Less than once", "1-2 days", "3-4 days", "5+ days"), 100, replace = TRUE)) # Categorical predictor
-)
-
-# Fit the multinomial logistic regression model
-model <- multinom(grades ~ hmwk_help, data = atb)
-
-# Model summary
-summary(model)
+# 
+# library(nnet)
+# 
+# # Example dataset
+# atb <- data.frame(
+#   grades = factor(sample(c("A", "B", "C", "D or F", "No grades", "Skip"), 100, replace = TRUE)), # Multiclass response
+#   hmwk_help = factor(sample(c("Never", "Less than once", "1-2 days", "3-4 days", "5+ days"), 100, replace = TRUE)) # Categorical predictor
+# )
+# 
+# # Fit the multinomial logistic regression model
+# model <- multinom(grades ~ hmwk_help, data = atb)
+# 
+# # Model summary
+# summary(model)
 ```
 
 ```{r}
