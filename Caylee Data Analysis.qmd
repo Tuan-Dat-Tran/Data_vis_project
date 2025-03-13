@@ -468,3 +468,41 @@ atb %>%
   scale_fill_viridis_d() +
   facet_wrap(~attend_pto)
 ```
+
+
+```{r}
+### SATISFACTION
+
+#ggplot(atb, aes(x=))
+
+atb %>%
+  filter(adult_volunteer != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = teacher_satisfaction, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~adult_volunteer)
+
+
+
+
+atb %>%
+  filter(enjoys != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = school_satisfaction, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~enjoys)
+
+
+
+atb %>%
+  filter(time_manage != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = enjoys, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~time_manage)
+
+```
+
