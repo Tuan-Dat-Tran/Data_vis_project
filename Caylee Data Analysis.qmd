@@ -469,7 +469,6 @@ atb %>%
   facet_wrap(~attend_pto)
 ```
 
-
 ```{r}
 ### SATISFACTION
 
@@ -506,3 +505,44 @@ atb %>%
 
 ```
 
+# Visualizations
+
+```{r}
+
+custom_order <- c("Strongly Agree", "Agree", "Disagree", "Strongly Disagree")
+# 
+# 
+# atb %>%
+#   filter(hmwk_check != "Skip") %>%
+#   mutate(hmwk_check = factor(hmwk_check, levels = custom_order)) %>%
+#   ggplot() +
+#   geom_bar(mapping = aes(x = hmwk_check, fill = factor(..x..), y = after_stat(prop), group=1)) +
+#   scale_fill_viridis_d() +
+#   facet_wrap(~grades)
+
+
+
+atb %>%
+  filter(hmwk_help != "Skip") %>%
+  mutate(enjoys = factor(enjoys, levels = custom_order
+                             )) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = enjoys, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~hmwk_help) +
+  labs(y="Proportion",
+       x="Parental agreement/disagreement with the statement: \"This child enjoys school.\"",
+       ) 
+
+
+```
+
+```{r}
+atb %>%
+  filter(serve_committee != "Skip") %>%
+  #mutate(adult_volunteer = factor(adult_volunteer, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = grades, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~serve_committee)
+```
