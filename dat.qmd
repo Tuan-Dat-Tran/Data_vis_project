@@ -119,3 +119,142 @@ atb %>%
   scale_fill_viridis_d() +
   facet_wrap(~grades)
 ```
+
+
+```{r}
+```
+
+```{r}
+#star
+
+
+
+atb %>%
+  filter(total_income != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = total_income, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~adult_volunteer)
+```
+
+
+
+```{r}
+#star star
+
+
+atb %>%
+  filter(first_guardian_marital != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = first_guardian_marital, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~adult_volunteer)
+```
+
+
+```{r}
+
+#star
+
+
+atb %>%
+  filter(first_guardian_hours != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = first_guardian_hours)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~adult_volunteer)
+
+
+```
+
+```{r}
+
+#star star
+
+atb %>%
+  filter(first_guardian_hours != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = first_guardian_hours)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~hmwk_help)
+```
+
+
+```{r}
+#star star
+
+
+atb %>%
+  filter(future_ed != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = future_ed, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~attend_pto)
+```
+
+```{r}
+#star star star
+
+atb %>%
+  filter(eat_together != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = eat_together, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~hmwk_help)
+```
+
+```{r}
+atb %>%
+  filter(guardian_type != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = guardian_type, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~hmwk_help)
+
+```
+
+```{r}
+#star star star star. Caylee
+
+atb %>%
+  filter(total_income != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = total_income, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~adult_volunteer) +
+  coord_flip()
+```
+
+
+```{r}
+atb %>%
+  filter(total_income != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = total_income, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~adult_volunteer) +
+  coord_flip()
+```
+
+
+```{r}
+atb %>%
+  filter(total_income != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = total_income, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~adult_volunteer) +
+  coord_flip()
+```
+
+
