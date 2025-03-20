@@ -253,17 +253,8 @@ atb %>%
 ```{r}
 custom_order <- c("Divorced", "Never married", "Separated", "Widowed", "Now married")
 
-atb %>%
-  filter(first_guardian_marital != "Skip") %>%
-  filter(adult_volunteer != "Skip") |> 
-  mutate(first_guardian_marital = factor(first_guardian_marital, levels = custom_order)) %>%
-  ggplot() +
-  geom_bar(mapping = aes(x = first_guardian_marital, fill = factor(..x..), y = after_stat(prop), group=1)) +
-  scale_fill_viridis_d() +
-  facet_wrap(~adult_volunteer) + 
-  coord_flip()
 
-atb %>%
+d <- atb %>%
   filter(first_guardian_marital != "Skip") %>%
   filter(adult_volunteer != "Skip") |> 
   mutate(first_guardian_marital = factor(first_guardian_marital, levels = custom_order)) %>%
@@ -281,6 +272,8 @@ atb %>%
   ) +
   scale_fill_viridis_d() +
   theme_minimal() 
+
+ggsave("divorce_volunteer.png", plot = d, device = "png")
 ```
 
 ```{r}
@@ -318,7 +311,7 @@ facet_label <- c("None" = "Never Eat Together",
 #   ) 
   
 
-atb %>%
+e<-atb %>%
   filter(eat_together != "Skip") %>%
   filter(hmwk_help != "Skip") |> 
   mutate(eat_together = factor(eat_together, levels = custom_order)) %>%
@@ -341,6 +334,8 @@ atb %>%
      title = "Families That Eat Together 7 Days Have Helped Their Children With Home Works More Than The Rest"
    ) +
   theme(legend.position = "none")
+
+ggsave("eat.png", plot = e, device = "png")
 ```
 
 ```{r}
