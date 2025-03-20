@@ -120,7 +120,6 @@ atb %>%
   facet_wrap(~grades)
 ```
 
-
 ```{r}
 ```
 
@@ -138,8 +137,6 @@ atb %>%
   facet_wrap(~adult_volunteer)
 ```
 
-
-
 ```{r}
 #star star
 
@@ -152,7 +149,6 @@ atb %>%
   scale_fill_viridis_d() +
   facet_wrap(~adult_volunteer)
 ```
-
 
 ```{r}
 
@@ -182,7 +178,6 @@ atb %>%
   scale_fill_viridis_d() +
   facet_wrap(~hmwk_help)
 ```
-
 
 ```{r}
 #star star
@@ -233,6 +228,16 @@ atb %>%
   coord_flip()
 ```
 
+```{r}
+atb %>%
+  filter(total_income != "Skip") %>%
+  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = total_income, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~adult_volunteer) +
+  coord_flip()
+```
 
 ```{r}
 atb %>%
@@ -245,16 +250,123 @@ atb %>%
   coord_flip()
 ```
 
-
 ```{r}
+custom_order <- c("Divorced", "Never married", "Separated", "Widowed", "Now married")
+
 atb %>%
-  filter(total_income != "Skip") %>%
-  #mutate(first_guardian_employment = factor(first_guardian_employment, levels = custom_order)) %>%
+  filter(first_guardian_marital != "Skip") %>%
+  filter(adult_volunteer != "Skip") |> 
+  mutate(first_guardian_marital = factor(first_guardian_marital, levels = custom_order)) %>%
   ggplot() +
-  geom_bar(mapping = aes(x = total_income, fill = factor(..x..), y = after_stat(prop), group=1)) +
+  geom_bar(mapping = aes(x = first_guardian_marital, fill = factor(..x..), y = after_stat(prop), group=1)) +
   scale_fill_viridis_d() +
-  facet_wrap(~adult_volunteer) +
+  facet_wrap(~adult_volunteer) + 
   coord_flip()
+
+atb %>%
+  filter(first_guardian_marital != "Skip") %>%
+  filter(adult_volunteer != "Skip") |> 
+  mutate(first_guardian_marital = factor(first_guardian_marital, levels = custom_order)) %>%
+  # group_by(adult_volunteer) |> 
+  # count(first_guardian_marital) |> 
+  # mutate(prop_marital = n/sum(n)) |> 
+  ggplot() +
+  geom_bar(aes(y = adult_volunteer, fill = first_guardian_marital), position = "fill") +
+  labs(
+    x = "Proportion Of Guardians Participating In Adult Volunteering",
+    y = "Whether Or Not Guardians Participate In Adult Volunteering",
+    fill = "Fist Guardian Marital Status",
+    title = "First Gruardians That Are Curently Married Tend To Participate More In Adult Volunteering",
+    subtitle = "First Gruardians That Are Divorces Tend To Participate Less In Adult Volunteering"
+  ) +
+  scale_fill_viridis_d() +
+  theme_minimal() 
 ```
 
+```{r}
+#star star star
 
+custom_order <- c("None", "One day", "Two days", "Three days", "Four days", "Five days", "Six days", "Seven days")
+
+custom_order2 <- c("Skip", "Never", "Less than once", "1-2 days", "3-4 days", "5+ days")
+
+facet_label <- c("None" = "Never Eat Together",
+                 "One day" = "Eat Together One Day Of The Week",
+                 "Two days" = "Eat Together Two Days Of The Week",
+                 "Three days" = "Eat Together Three Days Of The Week",
+                 "Four days" = "Eat Together Four Days Of The Week",
+                 "Five days" = "Eat Together Five Days Of The Week",
+                 "Six days" = "Eat Together Six Days Of The Week",
+                 "Seven days" = "Eat Together Seven Days Of The Week")
+
+# atb %>%
+#   filter(eat_together != "Skip") %>%
+#   filter(hmwk_help != "Skip") |> 
+#   mutate(eat_together = factor(eat_together, levels = custom_order)) %>%
+#   mutate(hmwk_help = factor(hmwk_help, levels = custom_order2)) |> 
+#   mutate(seven_days = if_else(eat_together == "Seven days", 1, 0)) |>
+#   ggplot() +
+#   geom_bar(mapping = aes(x = eat_together, fill = factor(..x..), y = after_stat(prop), 
+#                          group=1)) +
+#   scale_fill_viridis_d() +
+#   facet_wrap(~hmwk_help, ncol = 1) +
+#   coord_flip() +
+#   labs(
+#     y = "Proportion of Guardians Helping Children With Home Work",
+#     x = "How Often Families Eat Together",
+#     title = "Families That Eat Together 7 Days Have Helped Their Children With Home Works More Than The Rest"
+#   ) 
+  
+
+atb %>%
+  filter(eat_together != "Skip") %>%
+  filter(hmwk_help != "Skip") |> 
+  mutate(eat_together = factor(eat_together, levels = custom_order)) %>%
+  mutate(hmwk_help = factor(hmwk_help, levels = custom_order2)) |> 
+  group_by(eat_together) |> 
+  count(hmwk_help) |> 
+  mutate(prop_hmwk_help = n/sum(n)) |> 
+  mutate(never = case_when(
+    hmwk_help == "Never" ~ "yes",
+    hmwk_help == "5+ days" ~ "yesyes",
+    TRUE ~ "no"
+  )) |> 
+  ggplot() +
+  geom_col(mapping = aes(x = prop_hmwk_help, y = hmwk_help, fill = never)) +
+  scale_fill_viridis_d() +
+  facet_wrap(~eat_together, labeller = labeller(eat_together = facet_label), ncol = 1) +
+  labs(
+     x = "Proportion of Guardians Helping Children With Home Work",
+     y = "How Often Families Help Their Children With Home Work",
+     title = "Families That Eat Together 7 Days Have Helped Their Children With Home Works More Than The Rest"
+   ) +
+  theme(legend.position = "none")
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+custom_order <- c("None", "One day", "Two days", "Three days", "Four days", "Five days", "Six days", "Seven days")
+custom_order2 <- c("Skip", "Never", "Less than once", "1-2 days", "3-4 days", "5+ days")
+
+# Modify the code to highlight a specific bar (e.g., "Seven days")
+atb %>%
+  filter(eat_together != "Skip") %>%
+  filter(hmwk_help != "Skip") %>% 
+  mutate(eat_together = factor(eat_together, levels = custom_order)) %>%
+  mutate(hmwk_help = factor(hmwk_help, levels = custom_order2)) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = eat_together, 
+                         fill = factor(ifelse(eat_together == "Seven days", "highlight", "other")), 
+                         y = after_stat(prop), group = 1)) +
+  scale_fill_manual(values = c("highlight" = "red", "other" = "grey")) +  # Highlight in red, others in grey
+  facet_wrap(~hmwk_help) +
+  coord_flip() +
+  labs(
+    y = "Proportion of Guardians Helping Children With Home Work",
+    x = "How Often Families Eat Together",
+    title = "Families That Eat Together 7 Days Have Helped Their Children With Home Works More Than The Rest"
+  )
+
+```
