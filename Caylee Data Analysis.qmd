@@ -556,7 +556,7 @@ atb_noskip$adult_volunteer <- factor(atb_noskip$adult_volunteer, levels = c("Yes
 
 facet_labels <- c("Yes" = "Adult has volunteered this school-year", "No" = "Adult has NOT volunteered this school-year")
 
-atb_noskip %>%
+p <- atb_noskip %>%
   mutate(total_income = factor(total_income, levels = custom_order),) %>%
   ggplot() +
   geom_bar(show.legend = FALSE,
@@ -566,7 +566,7 @@ atb_noskip %>%
              labeller = labeller(adult_volunteer = facet_labels)) +
   coord_flip() +
   labs(x = "Total Household Income", y = "Proportion",
-       title = "As income decreases, the proportion of adults who volunteer with the school also decreases") +
+       title = "Household income may be a barrier to volunteering") +
   theme_minimal() +
   theme(
     panel.background = element_rect(fill = "white", color = NA),
@@ -574,26 +574,45 @@ atb_noskip %>%
     plot.background = element_rect(fill = "white", color = NA)
     # White overall plot background
   ) 
+
+#There is a higher proportion of lower income families among those who do not volunteer
+
+ggsave("income_volunteer_graph.png", plot = p, device = "png", width = 8, height = 6, dpi = 300)
 ```
 
 # HOURS VIS
 
 ```{r}
 
-facet_labels <- c("Yes" = "Adult has volunteered this school-year", "No" = "Adult has NOT volunteered this school-year")
-
-atb_noskip$adult_volunteer <- factor(atb_noskip$adult_volunteer, levels = c("Yes", "No"))
-
-atb_noskip %>%
-  ggplot() +
-  geom_histogram(mapping = aes(x = first_guardian_hours), fill="steelblue") +
-  facet_wrap(~adult_volunteer, labeller = labeller(adult_volunteer = facet_labels)) +
-  labs(x = "Hours the first guardian works per week", y = "", title = "In general, fewer adults volunteer with the school. \nHowever, adults who work more hours per week tend to volunteer less.") +
-  theme_minimal() +
-  theme(
-    panel.background = element_rect(fill = "white", color = NA),
-    # White panel background
-    plot.background = element_rect(fill = "white", color = NA)
-    # White overall plot background
-  ) 
+# facet_labels <- c("Yes" = "Adult has volunteered this school-year", "No" = "Adult has NOT volunteered this school-year")
+# 
+# atb_noskip$adult_volunteer <- factor(atb_noskip$adult_volunteer, levels = c("Yes", "No"))
+# 
+# atb_noskip %>%
+#   ggplot() +
+#   geom_histogram(mapping = aes(x = first_guardian_hours), fill="steelblue",
+#                  binwidth = 5) +
+#   facet_wrap(~adult_volunteer, labeller = labeller(adult_volunteer = facet_labels), ncol = 1) +
+#   labs(x = "Hours the first guardian works per week", y = "", title = "In general, fewer adults volunteer with the school. \nHowever, adults who work more hours per week tend to volunteer less.") +
+#   theme_minimal() +
+#   theme(
+#     panel.background = element_rect(fill = "white", color = NA),
+#     # White panel background
+#     plot.background = element_rect(fill = "white", color = NA)
+#     # White overall plot background
+#   ) 
+# 
+# atb_noskip %>%
+#   ggplot() +
+#   geom_violin(mapping = aes(x = first_guardian_hours, y = adult_volunteer), fill="steelblue",
+#                  binwidth = 5) +
+#   # facet_wrap(~adult_volunteer, labeller = labeller(adult_volunteer = facet_labels), ncol = 1) +
+#   labs(x = "Hours the first guardian works per week", y = "", title = "In general, fewer adults volunteer with the school. \nHowever, adults who work more hours per week tend to volunteer less.") +
+#   theme_minimal() +
+#   theme(
+#     panel.background = element_rect(fill = "white", color = NA),
+#     # White panel background
+#     plot.background = element_rect(fill = "white", color = NA)
+#     # White overall plot background
+#   ) 
 ```
