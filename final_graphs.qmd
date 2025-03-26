@@ -61,16 +61,27 @@ d <- atb %>%
   # count(first_guardian_marital) |> 
   # mutate(prop_marital = n/sum(n)) |> 
   ggplot() +
-  geom_bar(aes(y = adult_volunteer, fill = first_guardian_marital), position = "fill") +
+  geom_bar(aes(y = adult_volunteer, fill = first_guardian_marital), position = "fill", width = 0.45) +
   labs(
     x = "Proportion Of Guardians Participating In Adult Volunteering",
-    y = "Whether Or Not Guardians Participate In Adult Volunteering",
+    y = "Whether Or Not Guardians Participate \nIn Adult Volunteering",
     fill = "Fist Guardian Marital Status",
-    title = "First Gruardians That Are Curently Married Tend To Participate More In Adult Volunteering",
-    subtitle = "First Gruardians That Are Divorces Tend To Participate Less In Adult Volunteering"
+    title = "First guardians that are currently married tend to volunteer more",
+    subtitle = "First guardians that are divorced tend to volunteer less"
   ) +
   scale_fill_viridis_d() +
-  theme_minimal() 
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 10),  # Adjust size of y-axis text
+    axis.text.x = element_text(size = 10),  # Adjust size of x-axis text
+    plot.margin = margin(8, 8, 8, 8)  # Adjust plot margins if needed
+  ) +
+  theme(
+    panel.spacing = unit(0.2, "lines")  # Reduce space between the bars
+  ) +
+  scale_y_discrete(expand = c(0, 0))  # Remove extra space on y-axis for categorical data
+
+
 
 ggsave("divorce_volunteer_final.png", plot = d, device = "png")
 ```
@@ -111,11 +122,19 @@ e<-atb %>%
   scale_fill_viridis_d() +
   facet_wrap(~eat_together, labeller = labeller(eat_together = facet_label), ncol = 1) +
   labs(
-     x = "Proportion of Guardians Helping Children With Home Work",
-     y = "How Often Families Help Their Children With Home Work",
-     title = "Families That Eat Together 7 Days Have Helped Their Children With Home Works More Than The Rest"
+     x = "Proportion of Guardians Helping Children With Homework",
+     y = "How Often Families Help Their Children With Homework",
+     title = "Families that eat together 7 days per week tend to help their children with homework more than others"
    ) +
   theme(legend.position = "none")
 
 ggsave("eat_final.png", plot = e, device = "png")
 ```
+
+
+```{r}
+p
+d
+e
+```
+
