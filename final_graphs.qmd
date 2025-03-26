@@ -131,10 +131,8 @@ e<-atb %>%
 ggsave("eat_final.png", plot = e, device = "png")
 ```
 
-
 ```{r}
 p
 d
 e
 ```
-
