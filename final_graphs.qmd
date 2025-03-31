@@ -1,6 +1,8 @@
 ---
 title: "final_graphs"
 format: html
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -38,12 +40,20 @@ p <- atb_noskip %>%
   theme(
     panel.background = element_rect(fill = "white", color = NA),
     # White panel background
-    plot.background = element_rect(fill = "white", color = NA)
+    plot.background = element_rect(fill = "white", color = NA),
     # White overall plot background
+    text = element_text(size = 12),          # Global font size
+  axis.title = element_text(size = 16),    # X & Y axis labels
+  axis.text = element_text(size = 12),     # X & Y tick labels
+  legend.title = element_text(size = 14),  # Legend title
+  legend.text = element_text(size = 14),   # Legend labels
+  plot.title = element_text(size = 16, face = "bold"),  # Title
+  plot.subtitle = element_text(size = 12),
+  strip.text = element_text(size = 10.5)
   ) 
 
 #There is a higher proportion of lower income families among those who do not volunteer
-
+p
 ggsave("income_volunteer_graph_final.png", plot = p, device = "png", width = 8, height = 6, dpi = 300)
 ```
 
@@ -61,7 +71,7 @@ d <- atb %>%
   # count(first_guardian_marital) |> 
   # mutate(prop_marital = n/sum(n)) |> 
   ggplot() +
-  geom_bar(aes(y = adult_volunteer, fill = first_guardian_marital), position = "fill", width = 0.45) +
+  geom_bar(aes(y = adult_volunteer, fill = first_guardian_marital), position = "fill", width = 0.5) +
   labs(
     x = "Proportion Of Guardians Participating In Adult Volunteering",
     y = "Whether Or Not Guardians Participate \nIn Adult Volunteering",
@@ -77,12 +87,20 @@ d <- atb %>%
     plot.margin = margin(8, 8, 8, 8)  # Adjust plot margins if needed
   ) +
   theme(
-    panel.spacing = unit(0.2, "lines")  # Reduce space between the bars
+    panel.spacing = unit(0, "lines"),
+    text = element_text(size = 12),          # Global font size
+  axis.title = element_text(size = 16),    # X & Y axis labels
+  axis.text = element_text(size = 12),     # X & Y tick labels
+  legend.title = element_text(size = 14),  # Legend title
+  legend.text = element_text(size = 14),   # Legend labels
+  plot.title = element_text(size = 16, face = "bold"),  # Title
+  plot.subtitle = element_text(size = 12),
+  strip.text = element_text(size = 10.5)
   ) +
-  scale_y_discrete(expand = c(0, 0))  # Remove extra space on y-axis for categorical data
+  scale_y_discrete(expand = c(0, 0)) # Remove extra space on y-axis for categorical data 
 
 
-
+d
 ggsave("divorce_volunteer_final.png", plot = d, device = "png")
 ```
 
@@ -124,15 +142,19 @@ e<-atb %>%
   labs(
      x = "Proportion of Guardians Helping Children With Homework",
      y = "How Often Families Help Their Children With Homework",
-     title = "Families that eat together 7 days per week tend to help their children with homework more than others"
+     title = "Families that eat together 7 days per week \ntend to help their children with homework more than others"
    ) +
+  theme(legend.position = "none",
+        text = element_text(size = 12),          # Global font size
+  axis.title = element_text(size = 16),    # X & Y axis labels
+  axis.text = element_text(size = 12),     # X & Y tick labels
+  legend.title = element_text(size = 14),  # Legend title
+  legend.text = element_text(size = 14),   # Legend labels
+  plot.title = element_text(size = 16, face = "bold"),  # Title
+  plot.subtitle = element_text(size = 12),
+  strip.text = element_text(size = 10.5)) +
+  theme_minimal() +
   theme(legend.position = "none")
-
-ggsave("eat_final.png", plot = e, device = "png")
-```
-
-```{r}
-p
-d
 e
+ggsave("eat_final.png", plot = e, device = "png")
 ```
