@@ -73,13 +73,13 @@ d <- atb %>%
   ggplot() +
   geom_bar(aes(y = adult_volunteer, fill = first_guardian_marital), position = "fill", width = 0.5) +
   labs(
-    x = "Proportion Of Guardians Participating In Adult Volunteering",
-    y = "Whether Or Not Guardians Participate \nIn Adult Volunteering",
-    fill = "Fist Guardian Marital Status",
-    title = "First guardians that are currently married tend to volunteer more",
-    subtitle = "First guardians that are divorced tend to volunteer less"
+    x = "Proportion",
+    y = "Whether Or Not Guardians Volunteer",
+    fill = "First Guardian Marital Status",
+    title = "Guardians that are currently married tend to volunteer more",
+    subtitle = "Guardians that are divorced tend to volunteer less"
   ) +
-  scale_fill_viridis_d() +
+  scale_fill_viridis_d(guide = guide_legend(reverse = TRUE)) +
   theme_minimal() +
   theme(
     axis.text.y = element_text(size = 10),  # Adjust size of y-axis text
@@ -87,6 +87,8 @@ d <- atb %>%
     plot.margin = margin(8, 8, 8, 8)  # Adjust plot margins if needed
   ) +
   theme(
+    aspect.ratio = 1/2,
+    legend.position = "bottom",
     panel.spacing = unit(0, "lines"),
     text = element_text(size = 12),          # Global font size
   axis.title = element_text(size = 16),    # X & Y axis labels
@@ -140,8 +142,8 @@ e<-atb %>%
   scale_fill_viridis_d() +
   facet_wrap(~eat_together, labeller = labeller(eat_together = facet_label), ncol = 1) +
   labs(
-     x = "Proportion of Guardians Helping Children With Homework",
-     y = "How Often Families Help Their Children With Homework",
+     x = "Proportion",
+     y = "How often families help their children with homework per week",
      title = "Families that eat together 7 days per week \ntend to help their children with homework more than others"
    ) +
   theme(legend.position = "none",
