@@ -577,7 +577,7 @@ p <- atb_noskip %>%
 
 #There is a higher proportion of lower income families among those who do not volunteer
 
-ggsave("income_volunteer_graph.png", plot = p, device = "png", width = 8, height = 6, dpi = 300)
+# ggsave("income_volunteer_graph.png", plot = p, device = "png", width = 8, height = 6, dpi = 300)
 ```
 
 # HOURS VIS

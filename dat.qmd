@@ -273,7 +273,7 @@ d <- atb %>%
   scale_fill_viridis_d() +
   theme_minimal() 
 
-ggsave("divorce_volunteer.png", plot = d, device = "png")
+#ggsave("divorce_volunteer.png", plot = d, device = "png")
 ```
 
 ```{r}
@@ -335,7 +335,7 @@ e<-atb %>%
    ) +
   theme(legend.position = "none")
 
-ggsave("eat.png", plot = e, device = "png")
+#ggsave("eat.png", plot = e, device = "png")
 ```
 
 ```{r}

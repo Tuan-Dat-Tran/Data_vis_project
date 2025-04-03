@@ -75,7 +75,7 @@ d <- atb %>%
   labs(
     x = "Proportion",
     y = "Whether Or Not Guardians Volunteer",
-    fill = "First Guardian Marital Status",
+    fill = "",
     title = "Guardians that are currently married tend to volunteer more",
     subtitle = "Guardians that are divorced tend to volunteer less"
   ) +
